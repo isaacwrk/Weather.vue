@@ -19,9 +19,17 @@
     
 
     <div class="weather-box">
-      <div class="temp">{{ Math.round(weather.main.temp) }} ºc</div>
-      <div class="wheather">{{ weather.weather[0].main }}</div>
+      <div class="temp">{{ Math.round(weather.main.temp) }}ºc</div>
+      <div class="wheather">{{ weather.weather[0].description }}</div>
     </div>
+    </div>
+    <div class="extra"  v-if="typeof weather.main != 'undefined'">
+      <div info-box>
+        <p>Minima: {{Math.round(weather.main.temp_min)}}º</p>
+        <p>Máxima: {{Math.round(weather.main.temp_max)}}º</p>
+        <p>Sensação Térmica: {{Math.round(weather.main.feels_like)}}º</p>
+        <p>Umidade: {{weather.main.humidity}}%</p>
+      </div>
     </div>
 </main>
   </div>
@@ -42,7 +50,7 @@ export default {
     methods: {
       fetchWeather(e){
         if(e.key == 'Enter'){
-          fetch(`${this.url_base}weather?q=${this.query}&units=metric&appid=${this.api_key}`)
+          fetch(`${this.url_base}weather?q=${this.query}&units=metric&appid=${this.api_key}&lang=pt_br`)
           .then(res =>{
             return res.json()
           }).then(this.setResults)
@@ -168,6 +176,16 @@ main{
   font-style: italic;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
+
+.extra{
+  text-align: center;
+  margin-top:10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  color: #FFF;
+}
+
 
 </style>
 
