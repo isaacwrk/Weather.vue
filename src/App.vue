@@ -4,6 +4,17 @@
     <div class="search-box">
         <input type="text" class="search-bar" placeholder="Pesquisar.." />
     </div>
+    <div class="weather-app">
+      <div class="location-box">
+        <div class="location">João Pessoa - BR</div>
+        <div class="date">Segunda 11 de Outubro de 2021</div>
+      </div>
+    </div>
+
+    <div class="weather-box">
+      <div class="temp">30º</div>
+      <div class="wheather">Sol</div>
+    </div>
 </main>
   </div>
 </template>
@@ -74,6 +85,26 @@ main{
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 16px 0px 16px 0px;
+}
+
+.location-box .location{
+  color: #FFF;
+  font-size:32px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.location-box, .date{
+  color:#FFF;
+  font-size:26px;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+}
+
+.weather-box{
+  text-align:center;
 }
 
 </style>
