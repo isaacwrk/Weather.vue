@@ -1,12 +1,19 @@
 <template>
   <div id="app">
     <main>
+
     <div class="search-box">
-        <input type="text" class="search-bar" placeholder="Pesquisar.." />
+        <input 
+        type="text" 
+        class="search-bar" 
+        placeholder="Pesquisar.." 
+        v-model="query"
+        @keypress="fetchWeather"/>
     </div>
-    <div class="weather-app">
+
+    <div class="weather-app" v-if="typeof weather.main != 'undefined'">
       <div class="location-box">
-        <div class="location">João Pessoa - BR</div>
+        <div class="location">{{weather.name}},{{weather.sys.country}}</div>
         <div class="date">Segunda 11 de Outubro de 2021</div>
       </div>
     </div>
@@ -24,9 +31,25 @@ export default {
     name:'app',
     data(){
         return{
-            api_key:'1e98200976dfc0825963c51093ac8a88'
+            api_key:'1e98200976dfc0825963c51093ac8a88',
+            url_base:'https://api.openweathermap.org/data/2.5/',
+            query:'',
+            weather:{}
         }
-    }
+    },
+    methods: {
+      fetchWeather(e){
+        if(e.key == 'Enter'){
+          fetch(`${this.url_base}weather?q=${this.query}&units=metric&appid=${this.api_key}`)
+          .then(res =>{
+            return res.json()
+          }).then(this.setResults)
+        }
+      },
+      setResults(results){
+        this.weather = results;
+      }
+    },
 
 }
 </script>
