@@ -33,12 +33,14 @@
     </div>
 </main>
   </div>
+  <Footer/>
 </template>
 
 <script>
-
+import Footer from './components/Footer.vue'
 export default {
     name:'app',
+    components:{Footer},
     data(){
         return{
             api_key:'1e98200976dfc0825963c51093ac8a88',
@@ -106,7 +108,6 @@ main{
 .search-box{
   width: 100%;
   margin-bottom: 30px;
-  background-color:rgba(255,255,255,0.5);
   padding: 15px;
 }
 
