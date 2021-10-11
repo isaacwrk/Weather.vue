@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 23 ? 'warm' : '' ">
     <main>
 
     <div class="search-box">
@@ -14,19 +14,21 @@
     <div class="weather-app" v-if="typeof weather.main != 'undefined'">
       <div class="location-box">
         <div class="location">{{weather.name}},{{weather.sys.country}}</div>
-        <div class="date">Segunda 11 de Outubro de 2021</div>
+        <div class="date">{{ dateBuilder() }}</div>
       </div>
-    </div>
+    
 
     <div class="weather-box">
-      <div class="temp">30º</div>
-      <div class="wheather">Sol</div>
+      <div class="temp">{{ Math.round(weather.main.temp) }} ºc</div>
+      <div class="wheather">{{ weather.weather[0].main }}</div>
+    </div>
     </div>
 </main>
   </div>
 </template>
 
 <script>
+
 export default {
     name:'app',
     data(){
@@ -48,7 +50,17 @@ export default {
       },
       setResults(results){
         this.weather = results;
-      }
+      },
+      dateBuilder () {
+      let d = new Date();
+      let months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+      let days = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+      let day = days[d.getDay()];
+      let date = d.getDate();
+      let month = months[d.getMonth()];
+      let year = d.getFullYear();
+      return `${day} ${date} ${month} ${year}`;
+    }
     },
 
 }
@@ -71,6 +83,10 @@ body{
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
+}
+
+#app.warm{
+  background-image: url('./assets/warm-bg.jpg');
 }
 
 main{
